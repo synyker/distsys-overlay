@@ -89,10 +89,10 @@ function routeSubtree(parent, subtree) {
 	console.log('routing node ' + curRoot.id);
 
 	var leftSubtree = subtree.slice(0,curRootIndex);
-	var leftChild = leftSubtree[Math.ceil(leftSubTree.length/2)];
+	var leftChild = leftSubtree[Math.ceil(leftSubtree.length/2)];
 
 	var rightSubtree = subtree.slice(curRootIndex+1, subtree.length);
-	var rightChild = rightSubtree[Math.ceil(rightSubTree.length/2)];
+	var rightChild = rightSubtree[Math.ceil(rightSubtree.length/2)];
 
 	setRoutingTableForSubtreeNode(curRoot, parent, leftChild, leftSubtree[0].id, leftSubtree[leftSubtree.length-1].id, rightChild, rightSubtree[0].id, rightSubtree[rightSubtree.length-1].id);
 
