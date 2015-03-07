@@ -88,6 +88,10 @@ function routeSubtree(parent, subtree) {
 
 	console.log('routing node ' + curRoot.id);
 
+	if (substree.length < 5) {
+		console.log(subtree);
+	}
+
 	var leftSubtree = subtree.slice(0,curRootIndex);
 	var leftChild = leftSubtree[Math.ceil(leftSubtree.length/2)-1];
 
