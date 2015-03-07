@@ -71,7 +71,7 @@ function routeNodes(nodes) {
 	for (var i = 0; i < nodes.length; i+=chunkSize) {
 		var subTree = nodes.slice(i,i+chunkSize);
 		var subtreeCenter = nodes[i+chunkSize-1]
-		centernodes.push(subreeCenter);
+		centernodes.push(subtreeCenter);
 		addToNodeRoutingTable(subtreeCenter, subtree[Math.ceil(subtree.length/2)], subtree[0].id, subtree[subtree.length-1].id);
 		routeSubtree(subtreeCenter, subTree);
 	}
