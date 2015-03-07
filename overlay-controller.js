@@ -43,6 +43,7 @@ server.on('message', function(message, remote) {
 		
 		if (startedNodes == 128) {
 			console.log('all nodes started');
+			process.exit()
 			//routedNodes(nodes);
 		}
 	}

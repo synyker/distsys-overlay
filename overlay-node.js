@@ -32,6 +32,7 @@ server.on('listening', function() {
 	server.send(readyMsg, 0, readyMsg.length, controllerPort, controllerAddress, function (err, bytes) {
 		if (err) throw err;
 	});
+	process.exit(1);
 });
 
 
