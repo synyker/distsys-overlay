@@ -15,3 +15,5 @@ while [ $i -le $length ]; do
         ssh $node$baseip "killall -u $user"
         i=$[$i+1]
 done
+
+ssh ukko182.hpc.cs.helsinki.fi "killall -u $user"
