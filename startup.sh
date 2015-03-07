@@ -13,7 +13,7 @@ for i in {1..1024}
 do	
 
 	host=$(sed -n "$linecounter$char" < ukkonodes)
-
+	echo $host
 	ssh $host$baseip "cd $folder && node overlay-node.js $i" & 
 	#node overlay-node.js $i &
 
