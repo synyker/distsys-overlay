@@ -1,2 +1,5 @@
-# distsys-overlay
-Distributed Systems Project 2015, Excercise 3, Overlay
+# Distributed Systems Project, Spring 2015
+# Network Overlay
+
+Jonne Airaksinen, 013932592
+08.03.2015

@@ -1,0 +1,10 @@
+1 ukko182.hpc.cs.helsinki.fi 51001
+2 ukko183.hpc.cs.helsinki.fi 51002
+3 ukko184.hpc.cs.helsinki.fi 51003
+4 ukko185.hpc.cs.helsinki.fi 51004
+5 ukko186.hpc.cs.helsinki.fi 51005
+6 ukko187.hpc.cs.helsinki.fi 51006
+7 ukko188.hpc.cs.helsinki.fi 51007
+8 ukko189.hpc.cs.helsinki.fi 51008
+9 ukko190.hpc.cs.helsinki.fi 51009
+10 ukko191.hpc.cs.helsinki.fi 51010
