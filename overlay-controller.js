@@ -69,11 +69,11 @@ function routeNodes(nodes) {
 	var centernodes = [];
 	var chunkSize = 128;
 	for (var i = 0; i < nodes.length; i+=chunkSize) {
-		var subTree = nodes.slice(i,i+chunkSize);
+		var subtree = nodes.slice(i,i+chunkSize);
 		var subtreeCenter = nodes[i+chunkSize-1]
 		centernodes.push(subtreeCenter);
 		addToNodeRoutingTable(subtreeCenter, subtree[Math.ceil(subtree.length/2)], subtree[0].id, subtree[subtree.length-1].id);
-		routeSubtree(subtreeCenter, subTree);
+		routeSubtree(subtreeCenter, subtree);
 	}
 }
 
