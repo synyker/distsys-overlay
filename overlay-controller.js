@@ -41,9 +41,6 @@ server.on('message', function(message, remote) {
 		if (startedNodes % 128 == 0)
 			console.log(startedNodes + ' started');
 
-		if (startedNodes > 950)
-			console.log(nodes);
-		
 		if (startedNodes == 1024) {
 			console.log('all nodes started');
 			console.log(nodes);
