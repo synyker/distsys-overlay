@@ -78,7 +78,7 @@ function routeNodes(nodes) {
 
 function routeSubtree(parent, subtree) {
 
-	if (chunk.length == 1) {
+	if (subtree.length == 1) {
 		setRoutingTableForSubtreeNode(subtree[0], parent, undefined, 0, undefined, undefined, undefined, 1024)
 		return;
 	}
