@@ -55,7 +55,7 @@ server.on('message', function(message, remote) {
 
 		routedNodes += 1;
 
-		if (routedNodes % 128 == 0 || routedNodes > 1000) {
+		if (routedNodes % 128 == 0 || routedNodes > 1020) {
 			console.log('routed: ' + routedNodes);
 			//startNodes(nodes);
 		}
@@ -70,8 +70,8 @@ function routeNodes(nodes) {
 	var chunkSize = 128;
 	for (var i = 0; i < nodes.length; i+=chunkSize) {
 		var subTree = nodes.slice(i,i+chunkSize);
-		var subTreeCenter = nodes[i+chunkSize-1]
-		centernodes.push(subTreeCenter);
+		var subtreeCenter = nodes[i+chunkSize-1]
+		centernodes.push(subreeCenter);
 		addToNodeRoutingTable(subtreeCenter, subtree[Math.ceil(subtree.length/2)], subtree[0].id, subtree[subtree.length-1].id);
 		routeSubtree(subtreeCenter, subTree);
 	}
