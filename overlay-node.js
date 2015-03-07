@@ -15,7 +15,7 @@ var port = 42000 + parseInt(id);
 var dgram = require('dgram');
 server = dgram.createSocket('udp4');
 
-var controllerAddress = 'ukko182.hpc.cs.helsinki.fi';
+var controllerAddress = '86.50.20.183'; //'ukko182.hpc.cs.helsinki.fi';
 var controllerPort = 40000;
 
 // Local variables for full node history, number of local events counting, local clock timestamp.
