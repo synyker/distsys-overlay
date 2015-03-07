@@ -66,9 +66,11 @@ server.on('message', function(message, remote) {
 server.bind(port, host);
 
 function routeNodes(nodes) {
+	console.log('routing subtrees');
 	var centernodes = [];
 	var chunkSize = 128;
 	for (var i = 0; i < nodes.length; i+=chunkSize) {
+		console.log('routing subtree ' + ( (i+chunkSize) / 128 ) );
 		var subtree = nodes.slice(i,i+chunkSize);
 		var subtreeCenter = nodes[i+chunkSize-1]
 		centernodes.push(subtreeCenter);
@@ -85,6 +87,7 @@ function routeSubtree(parent, subtree) {
 	}
 
 	var curRoot = subtree[Math.ceil(subtree.length/2)];
+	console.log('routing node ' + curRoot.id);
 
 	var leftSubTree = subtree.slice(0,curRootIndex);
 	var leftChild = leftSubtree[Math.ceil(leftSubTree.length/2)];
