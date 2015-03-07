@@ -101,7 +101,7 @@ function routeSubtree(parent, subtree) {
 
 }
 
-function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, LeftLargest, rightChild, rightSmallest, rightLargest) {
+function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, leftLargest, rightChild, rightSmallest, rightLargest) {
 
 	var route = 'ROUTE_ADD ';
 
