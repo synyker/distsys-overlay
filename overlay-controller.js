@@ -83,7 +83,9 @@ function routeSubtree(parent, subtree) {
 		return;
 	}
 
-	var curRoot = subtree[Math.ceil(subtree.length/2)];
+	var curRootIndex = Math.ceil(subtree.length/2);
+	var curRoot = subtree[curRootIndex];
+	
 	console.log('routing node ' + curRoot.id);
 
 	var leftSubTree = subtree.slice(0,curRootIndex);
