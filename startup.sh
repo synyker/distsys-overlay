@@ -13,12 +13,13 @@ for i in {1..1024}
 do	
 
 	host=$(sed -n "$linecounter$char" < ukkonodes)
-	echo $host
+	
 	ssh $host$baseip "cd $folder && node overlay-node.js $i" & 
 	#node overlay-node.js $i &
 
 	if (( $i % 32 == 0 ))
 	then
 		linecounter=$[$linecounter+1]
+		echo $linecounter
 	fi
 done

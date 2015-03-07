@@ -38,7 +38,8 @@ server.on('message', function(message, remote) {
 		nodes[node.id-1] = node;
 		startedNodes += 1;
 
-		console.log(startedNodes + ' started');
+		if (startedNodes % 128 == 0)
+			console.log(startedNodes + ' started');
 		
 		if (startedNodes == 128) {
 			console.log('all nodes started');
