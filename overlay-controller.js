@@ -38,10 +38,10 @@ server.on('message', function(message, remote) {
 		nodes[node.id-1] = node;
 		startedNodes += 1;
 
-		if (startedNodes % 128 == 0)
+		if (startedNodes % 128 == 0 || startedNodes > 950)
 			console.log(startedNodes + ' started');
 		
-		if (startedNodes == 128) {
+		if (startedNodes == 1024) {
 			console.log('all nodes started');
 			process.exit()
 			//routedNodes(nodes);
