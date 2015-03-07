@@ -3,7 +3,8 @@
 
 folder=$(pwd)
 baseip=".hpc.cs.helsinki.fi"
-linecounter = 1
+linecounter=1
+char="p"
 
 ssh ukko182.hpc.cs.helsinki.fi "cd $folder && node overlay-controller.js" & 
 #node overlay-controller.js &
