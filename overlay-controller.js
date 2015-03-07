@@ -52,8 +52,9 @@ server.on('message', function(message, remote) {
 
 		routedNodes += 1;
 
-		if (routedNodes == 1024) {
-			startNodes(nodes);
+		if (routedNodes % 128 == 0 || routedNodes > 1000) {
+			console.log('routed: ' + routedNodes);
+			//startNodes(nodes);
 		}
 	}
 

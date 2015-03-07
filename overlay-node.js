@@ -29,10 +29,7 @@ server.on('listening', function() {
 	var address = server.address();
 	//console.log('listening on ' + address.address + ':' + address.port);
 
-	var readyMsg = new Buffer('NODE_STARTED ' + id);
-	server.send(readyMsg, 0, readyMsg.length, controllerPort, controllerAddress, function (err, bytes) {
-		if (err) throw err;
-	});
+	messageMasterNode(new Buffer('NODE_STARTED ' + id));
 });
 
 
@@ -57,7 +54,7 @@ server.on('message', function(message, remote) {
 					largest: routePieces[4]
 				}
 				routes.push(route);
-				
+				messageMasterNode(new Buffer('NODE_ROUTED'));
 			}
 
 		};
@@ -73,6 +70,8 @@ server.on('message', function(message, remote) {
 // Listen to the port on the host and port specified in the config file.
 server.bind(port, host);
 
-function pingMasterNode() {
-
+function messageMasterNode(msg) {
+	server.send(msg, 0, msg.length, controllerPort, controllerAddress, function (err, bytes) {
+		if (err) throw err;
+	});
 }
