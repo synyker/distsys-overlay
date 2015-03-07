@@ -12,6 +12,14 @@ var routedNodes = 0;
 var dgram = require('dgram');
 server = dgram.createSocket('udp4');
 
+var os = require('os');
+var host = os.hostname();
+var port = 40000;
+
+server.on('listening', function() {
+	console.log(server.address().address);
+});
+
 server.on('message', function(message, remote) {
 
 	// Since the message is of type Buffer, use its toString-method and trim unnecessary whitespaces.
@@ -30,10 +38,9 @@ server.on('message', function(message, remote) {
 		nodes[node.id-1] = node;
 		startedNodes += 1;
 
-		if (startedNodes % 128 == 0)
-			console.log(startedNodes + ' started');
+		console.log(startedNodes + ' started');
 		
-		if (startedNodes == 1024) {
+		if (startedNodes == 128) {
 			console.log('all nodes started');
 			//routedNodes(nodes);
 		}
@@ -50,8 +57,6 @@ server.on('message', function(message, remote) {
 
 });
 
-var host = '127.0.0.1';
-var port = '40000';
 server.bind(port, host);
 
 function routeNodes(nodes) {

@@ -3,11 +3,11 @@
 
 folder=$(pwd)
 
-#ssh ukko182.hpc.cs.helsinki.fi "cd $folder && node overlay-controller.js" &
-node overlay-controller.js &
+ssh ukko182.hpc.cs.helsinki.fi "cd $folder && node overlay-controller.js" & 
+#node overlay-controller.js &
 
-for i in {1..1024}
+for i in {1..64}
 do
-	#ssh ukko182.hpc.cs.helsinki.fi "cd $folder && node overlay-node.js $i" & 
-	node overlay-node.js $i &
+	ssh ukko183.hpc.cs.helsinki.fi "cd $folder && node overlay-node.js $i" & 
+	#node overlay-node.js $i &
 done
