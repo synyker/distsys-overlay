@@ -14,7 +14,7 @@ do
 
 	host=$(sed -n "$linecounter$char" < ukkonodes)
 
-	ssh $node$baseip "cd $folder && node overlay-node.js $i" & 
+	ssh $host$baseip "cd $folder && node overlay-node.js $i" & 
 	#node overlay-node.js $i &
 
 	if (( $i % 32 == 0 ))
