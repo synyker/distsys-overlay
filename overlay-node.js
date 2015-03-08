@@ -108,9 +108,9 @@ function sendMessage(destinationId, hops) {
 			break;
 		}
 	}
-	console.log('looking for node ' + destinationId);
-	console.log(routes);
-	console.log(destination);
+	console.log('in node ' + id + ', looking for node ' + destinationId);
+	//console.log(routes);
+	//console.log(destination);
 	var m = new Buffer('MSG ' + destinationId + ' ' + hops);
 	messageNode(m, destination.address, destination.port);
 }
