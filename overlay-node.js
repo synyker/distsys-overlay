@@ -40,6 +40,8 @@ server.on('message', function(message, remote) {
 	var messageContent = message.toString('utf8').trim();
 
 	if (messageContent.split(' ')[0] == 'ROUTE_ADD') {
+		console.log('adding routes to ' + id);
+
 		var routesTmp = messageContent.split(' ')[1].split('|');
 		for (var i = 0; i < routesTmp.length; i++) {
 			
