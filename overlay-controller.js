@@ -7,6 +7,8 @@ var basePort = 42000;
 
 var nodes = [];
 var startedNodes = 0;
+
+var routed = [];
 var routedNodes = 0;
 
 var dgram = require('dgram');
@@ -50,7 +52,13 @@ server.on('message', function(message, remote) {
 
 	if (messageContent.split(' ')[0] == 'NODE_ROUTED') {
 
-		routedNodes += 1;
+		var nid = messageContent.split(' ')[1];
+		if (!routed[nid]) {
+			routedNodes += 1;
+			routed[nid] = true;
+			sendMessageToNode(new Buffer('ROUTED_RECEIVED'), nodes[parseInt(nid)-1]);
+		}
+		
 
 		console.log('routed: ' + routedNodes);
 		if (routedNodes % 128 == 0 || routedNodes > 1020) {
@@ -128,7 +136,7 @@ function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, le
 		route += generateRouteString(rightChild, rightSmallest, rightLargest);
 	}
 
-	setTimeout(sendMessageToNode(new Buffer(route), node), 200);
+	sendMessageToNode(new Buffer(route), node);
 
 }
 
@@ -150,7 +158,7 @@ function addRoutesToCenterNode(node, subtreeRoot, smallest, largest, centernodes
 
 	route += generateRouteString(subtreeRoot, smallest, largest);
 
-	setTimeout(sendMessageToNode(new Buffer(route), node), 200);
+	sendMessageToNode(new Buffer(route), node);
 }
 
 function generateRouteString(destination, smallest, largest) {

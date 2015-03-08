@@ -60,9 +60,14 @@ server.on('message', function(message, remote) {
 
 		}
 
-		messageMasterNode(new Buffer('NODE_ROUTED ' + id));
+		routed = setInterval(messageMasterNode(new Buffer('NODE_ROUTED ' + id)), 200);
 	}
 	
+	if (messageContent.split(' ')[0] == 'ROUTED_RECEIVED') {
+		console.log('clearing interval');
+		clearInterval(routed);
+	}
+
 	if (messageContent.split(' ')[0] == 'START') {
 		console.log('messaging others');
 	}
