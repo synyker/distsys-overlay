@@ -128,7 +128,7 @@ function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, le
 		route += generateRouteString(rightChild, rightSmallest, rightLargest);
 	}
 
-	sendMessageToNode(new Buffer(route), node);
+	setTimeout(sendMessageToNode(new Buffer(route), node), 200);
 
 }
 
@@ -150,7 +150,7 @@ function addRoutesToCenterNode(node, subtreeRoot, smallest, largest, centernodes
 
 	route += generateRouteString(subtreeRoot, smallest, largest);
 
-	sendMessageToNode(new Buffer(route), node);
+	setTimeout(sendMessageToNode(new Buffer(route), node), 200);
 }
 
 function generateRouteString(destination, smallest, largest) {
