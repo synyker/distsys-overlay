@@ -102,8 +102,8 @@ server.on('message', function(message, remote) {
 			address: remote.address, 
 			port: remote.port
 		}
-		
-		sendMessageToNode(new Buffer('FOUND_RECEIVED'), nodes[parseInt(foundNode)-1]);
+
+		sendMessageToNode(new Buffer('FOUND_RECEIVED'), senderNode);
 
 		//console.log('found node: ' + foundNode);
 		//console.log('totalMessages: ' + totalMessages);
