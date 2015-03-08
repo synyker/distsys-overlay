@@ -101,17 +101,17 @@ function messageOtherNodes() {
 	}
 }
 
-function sendMessage(id, hops) {
+function sendMessage(destinationId, hops) {
 	for (var i = 0; i < routes.length; i++) {
-		if (id >= routes[i].smallest && id <= routes[i].largest) {
+		if (destinationId >= routes[i].smallest && destinationId <= routes[i].largest) {
 			var destination = routes[i];
 			break;
 		}
 	}
-	console.log('looking for node ' + id);
+	console.log('looking for node ' + destinationId);
 	console.log(routes);
 	console.log(destination);
-	var m = new Buffer('MSG ' + id + ' ' + hops);
+	var m = new Buffer('MSG ' + destinationId + ' ' + hops);
 	messageNode(m, destination.address, destination.port);
 }
 
