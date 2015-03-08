@@ -82,7 +82,7 @@ server.on('message', function(message, remote) {
 		totalMessages += 1;
 		totalHops += hops;
 
-		console.log('found node: ' + id);
+		console.log('found node: ' + foundNode);
 		console.log('totalMessages: ' + totalMessages);
 		console.log('totalHops: ' + totalHops);
 		console.log('averge hops: ' + totalHops / totalMessages);
