@@ -96,9 +96,9 @@ server.on('message', function(message, remote) {
 server.bind(port, host);
 
 function messageOtherNodes() {
-	for (var id = 1; id <= 1024; id++) {
-		if (id != i)
-			sendMessage(id, 1);
+	for (var destId = 1; destId <= 1024; destId++) {
+		if (id != destId)
+			sendMessage(destId, 1);
 	}
 }
 
