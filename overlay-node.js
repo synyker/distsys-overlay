@@ -51,8 +51,8 @@ server.on('message', function(message, remote) {
 					id: routePieces[0],
 					address: routePieces[1],
 					port: routePieces[2],
-					smallest: routePieces[3],
-					largest: routePieces[4]
+					smallest: parseInt(routePieces[3]),
+					largest: parseInt(routePieces[4])
 				}
 				routes.push(route);
 				
@@ -81,7 +81,7 @@ server.on('message', function(message, remote) {
 
 		if (parseInt(destinationId) == parseInt(id)) {
 			//console.log('FOUND NODE ' + id);
-			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(1500, 2500));
+			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, 10000);
 			//messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort);
 		}
 		else {
