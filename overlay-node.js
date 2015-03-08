@@ -97,7 +97,8 @@ server.bind(port, host);
 
 function messageOtherNodes() {
 	for (var id = 1; id <= 1024; id++) {
-		sendMessage(id, 1);
+		if (id != i)
+			sendMessage(id, 1);
 	}
 }
 
@@ -108,7 +109,7 @@ function sendMessage(destinationId, hops) {
 			break;
 		}
 	}
-	console.log('in node ' + id + ', looking for node ' + destinationId);
+	//console.log('in node ' + id + ', looking for node ' + destinationId);
 	//console.log(routes);
 	//console.log(destination);
 	var m = new Buffer('MSG ' + destinationId + ' ' + hops);
