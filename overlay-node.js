@@ -19,11 +19,6 @@ server = dgram.createSocket('udp4');
 controllerAddress = '86.50.20.183'; //'ukko182.hpc.cs.helsinki.fi';
 controllerPort = 40000;
 
-// Local variables for full node history, number of local events counting, local clock timestamp.
-var history = '';
-var events = 0
-var clock = 0;
-
 // When the local server starts listening, start pinging other nodes on a specified (50ms) interval
 server.on('listening', function() {
 	var address = server.address();
@@ -75,18 +70,19 @@ server.on('message', function(message, remote) {
 
 		//console.log(messageContent);
 
-		var destinationId = messageContent.split(' ')[1].trim();
-		var hops = parseInt(messageContent.split(' ')[2].trim());
+		var originId = messageContent.split(' ')[1].trim();
+		var destinationId = messageContent.split(' ')[2].trim();
+		var hops = parseInt(messageContent.split(' ')[3].trim());
 
 
 		if (parseInt(destinationId) == parseInt(id)) {
 			//console.log('FOUND NODE ' + id);
-			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(1500, 2500));
+			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(250, 500));
 			//messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort);
 		}
 		else {
 			hops += 1;
-			sendMessage(destinationId, hops);
+			sendMessage(originId, destinationId, hops);
 		}
 	}
 
@@ -102,11 +98,11 @@ server.bind(port, host);
 function messageOtherNodes() {
 	for (var destId = 1; destId <= 1024; destId++) {
 		if (id != destId)
-			sendMessage(destId, 1);
+			sendMessage(id, destId, 1);
 	}
 }
 
-function sendMessage(destinationId, hops) {
+function sendMessage(originalId, destinationId, hops) {
 	for (var i = 0; i < routes.length; i++) {
 		if (destinationId >= routes[i].smallest && destinationId <= routes[i].largest) {
 			var destination = routes[i];
@@ -116,7 +112,7 @@ function sendMessage(destinationId, hops) {
 	//console.log('in node ' + id + ', looking for node ' + destinationId);
 	//console.log(routes);
 	//console.log(destination);
-	var m = new Buffer('MSG ' + destinationId + ' ' + hops);
+	var m = new Buffer('MSG ' + ' ' + originalId + ' ' + destinationId + ' ' + hops);
 	messageNode(m, destination.address, destination.port);
 }
 

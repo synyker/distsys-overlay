@@ -22,6 +22,14 @@ var totalRouteTableLength = 0;
 var minRouteTable = 1000;
 var maxRouteTable = 0;
 
+var receivedMessages = [];
+for (var i = 0; i < 1024; i++) {
+	receivedMessages[i] = [];
+	for (var j = 0; j < 1024; j++) {
+		receivedMessages[i][j] = false;
+	}
+}
+
 var totalMessages = 0;
 var totalHops = 0;
 
@@ -92,22 +100,27 @@ server.on('message', function(message, remote) {
 	}
 
 	if (messageContent.split(' ')[0] == 'FOUND') {
-		var foundNode = messageContent.split(' ')[1];
-		var hops = parseInt(messageContent.split(' ')[2].trim());
+		var originalNode = parseInt(messageContent.split(' ')[1]);
+		var foundNode = parseInt(messageContent.split(' ')[2]);
+		var hops = parseInt(messageContent.split(' ')[3].trim());
 
-		totalMessages += 1;
-		totalHops += hops;
+		if (!receivedMessages[originalNode][foundNode]) {
+			receivedMessages[originalNode][foundNode] = true;
+			totalMessages += 1;
+			totalHops += hops;
 
-		senderNode = {
-			address: remote.address, 
-			port: remote.port
+			senderNode = {
+				address: remote.address, 
+				port: remote.port
+			}
+
+			sendMessageToNode(new Buffer('FOUND_RECEIVED'), senderNode);
+
+			//console.log('found node: ' + foundNode);
+			//console.log('totalMessages: ' + totalMessages);
+			//console.log('totalHops: ' + totalHops);
 		}
 
-		sendMessageToNode(new Buffer('FOUND_RECEIVED'), senderNode);
-
-		//console.log('found node: ' + foundNode);
-		//console.log('totalMessages: ' + totalMessages);
-		//console.log('totalHops: ' + totalHops);
 		if (totalMessages % 10000 == 0 || totalMessages == 1024*1024) {
 			console.log('average hops: ' + totalHops / totalMessages);
 			console.log('totalMessages: ' + totalMessages);
