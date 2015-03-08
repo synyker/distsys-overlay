@@ -60,7 +60,7 @@ server.on('message', function(message, remote) {
 
 		}
 
-		routed = setInterval(messageMasterNode(new Buffer('NODE_ROUTED ' + id)), 200);
+		routed = setInterval(function() { messageMasterNode(new Buffer('NODE_ROUTED ' + id)) }, 200);
 	}
 	
 	if (messageContent.split(' ')[0] == 'ROUTED_RECEIVED') {
