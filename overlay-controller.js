@@ -26,7 +26,7 @@ var receivedMessages = [];
 for (var r = 0; r < 1024; r++) {
 	receivedMessages[r] = [];
 	for (var s = 0; s < 1024; s++) {
-		receivedMessages[s][r] = false;
+		receivedMessages[r][s] = false;
 	}
 }
 
