@@ -88,7 +88,7 @@ function routeSubtree(parent, subtree) {
 
 	console.log('routing node ' + curRoot.id);
 
-	if (substree.length < 5) {
+	if (subtree.length < 5) {
 		console.log(subtree);
 	}
 
