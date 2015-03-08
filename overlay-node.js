@@ -65,10 +65,10 @@ server.on('message', function(message, remote) {
 	}
 
 	if (messageContent.split(' ')[0] == 'MSG') {
-
-		var originId = messageContent.split(' ')[1].trim();
-		var destinationId = messageContent.split(' ')[2].trim();
-		var hops = parseInt(messageContent.split(' ')[3].trim());
+		var msgPieces = messageContent.split(' ');
+		var originId = msgPieces[1].trim();
+		var destinationId = msgPieces[2].trim();
+		var hops = parseInt(msgPieces[3].trim());
 
 
 		if (parseInt(destinationId) == parseInt(id)) {
