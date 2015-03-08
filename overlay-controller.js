@@ -82,12 +82,12 @@ server.on('message', function(message, remote) {
 		totalMessages += 1;
 		totalHops += hops;
 
-		//sendMessageToNode(new Buffer('FOUND_RECEIVED'), nodes[parseInt(foundNode)-1]);
+		sendMessageToNode(new Buffer('FOUND_RECEIVED'), nodes[parseInt(foundNode)-1]);
 
 		//console.log('found node: ' + foundNode);
 		//console.log('totalMessages: ' + totalMessages);
 		//console.log('totalHops: ' + totalHops);
-		if (totalMessages % 10000 == 0 || totalMessages == 1024*1024) {
+		if (totalMessages % 100 == 0 || totalMessages == 1024*1024) {
 			console.log('average hops: ' + totalHops / totalMessages);
 			console.log('totalMessages: ' + totalMessages);
 		}

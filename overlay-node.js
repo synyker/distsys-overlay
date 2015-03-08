@@ -81,8 +81,8 @@ server.on('message', function(message, remote) {
 
 		if (parseInt(destinationId) == parseInt(id)) {
 			//console.log('FOUND NODE ' + id);
-			//found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(250, 650));
-			messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort);
+			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(1500, 2500));
+			//messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort);
 		}
 		else {
 			hops += 1;
