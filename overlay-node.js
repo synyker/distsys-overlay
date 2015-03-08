@@ -10,7 +10,7 @@ var os = require('os');
 var id = process.argv[2];
 var host = os.hostname();
 var port = 42000 + parseInt(id);
-var routes = [];
+routes = [];
 
 // Create the UDP server
 var dgram = require('dgram');
@@ -105,6 +105,8 @@ function sendMessage(id, hops) {
 			break;
 		}
 	}
+	console.log(routes);
+	console.log(destination);
 	var m = new Buffer('MSG ' + id + ' ' + hops);
 	messageNode(m, destination.address, destination.port);
 }
