@@ -82,7 +82,7 @@ server.on('message', function(message, remote) {
 		totalMessages += 1;
 		totalHops += hops;
 
-		sendMessageToNode(new Buffer('FOUND_RECEIVED'), nodes[parseInt(foundNode)-1]);
+		//sendMessageToNode(new Buffer('FOUND_RECEIVED'), nodes[parseInt(foundNode)-1]);
 
 		//console.log('found node: ' + foundNode);
 		//console.log('totalMessages: ' + totalMessages);
