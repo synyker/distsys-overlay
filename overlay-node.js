@@ -16,13 +16,11 @@ routes = [];
 var dgram = require('dgram');
 server = dgram.createSocket('udp4');
 
-controllerAddress = '86.50.20.183'; //'ukko182.hpc.cs.helsinki.fi';
+controllerAddress = '86.50.20.183'; // ukko182 actual ip
 controllerPort = 40000;
 
-// When the local server starts listening, start pinging other nodes on a specified (50ms) interval
 server.on('listening', function() {
 	var address = server.address();
-	//console.log('listening on ' + address.address + ':' + address.port);
 
 	messageNode(new Buffer('NODE_STARTED ' + id), controllerAddress, controllerPort);
 });
@@ -68,17 +66,13 @@ server.on('message', function(message, remote) {
 
 	if (messageContent.split(' ')[0] == 'MSG') {
 
-		//console.log(messageContent);
-
 		var originId = messageContent.split(' ')[1].trim();
 		var destinationId = messageContent.split(' ')[2].trim();
 		var hops = parseInt(messageContent.split(' ')[3].trim());
 
 
 		if (parseInt(destinationId) == parseInt(id)) {
-			//console.log('FOUND NODE ' + id);
 			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(250, 500));
-			//messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort);
 		}
 		else {
 			hops += 1;
@@ -92,7 +86,6 @@ server.on('message', function(message, remote) {
 
 });
 
-// Listen to the port on the host and port specified in the config file.
 server.bind(port, host);
 
 function messageOtherNodes() {
@@ -109,10 +102,8 @@ function sendMessage(originalId, destinationId, hops) {
 			break;
 		}
 	}
-	//console.log('in node ' + id + ', looking for node ' + destinationId);
-	//console.log(routes);
-	//console.log(destination);
-	var m = new Buffer('MSG ' + ' ' + originalId + ' ' + destinationId + ' ' + hops);
+
+	var m = new Buffer('MSG ' + originalId + ' ' + destinationId + ' ' + hops);
 	messageNode(m, destination.address, destination.port);
 }
 
