@@ -56,12 +56,18 @@ server.on('message', function(message, remote) {
 					largest: routePieces[4]
 				}
 				routes.push(route);
-				messageMasterNode(new Buffer('NODE_ROUTED ' + id));
+				
 			}
 
-		};
+		}
+
+		messageMasterNode(new Buffer('NODE_ROUTED ' + id));
 	}
 	
+	if (messageContent.split(' ')[0] == 'START') {
+		
+	}
+
 	if (messageContent.split(' ')[0] == 'MSG') {
 		var destination = messageContent.split(' ')[1].trim();
 		var hops = messageContent.split(' ')[2].trim();

@@ -56,6 +56,11 @@ server.on('message', function(message, remote) {
 			console.log('routed: ' + routedNodes);
 			//startNodes(nodes);
 		}
+
+		if (routedNodes == 1024) {
+			console.log('all nodes routed');
+			startNodes();
+		}
 	}
 
 });
@@ -122,7 +127,7 @@ function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, le
 		route += generateRouteString(rightChild, rightSmallest, rightLargest);
 	}
 
-	sendRouteAddMessage(new Buffer(route), node);
+	sendMessageToNode(new Buffer(route), node);
 
 }
 
@@ -144,14 +149,14 @@ function addRoutesToCenterNode(node, subtreeRoot, smallest, largest, centernodes
 
 	route += generateRouteString(subtreeRoot, smallest, largest);
 
-	sendRouteAddMessage(new Buffer(route), node);
+	sendMessageToNode(new Buffer(route), node);
 }
 
 function generateRouteString(destination, smallest, largest) {
 	return destination.id + '/' + destination.address + '/' + destination.port + '/' + smallest + '/' + largest + '|';
 }
 
-function sendRouteAddMessage(msg, node) {
+function sendMessageToNode(msg, node) {
 
 	server.send(msg, 0, msg.length, node.port, node.address, function (err, bytes) {
 		if (err) throw err;
@@ -161,4 +166,7 @@ function sendRouteAddMessage(msg, node) {
 
 function startNodes(nodes) {
 
+	for (var i = 0; i < nodes.length; i++) {
+		sendMessageToNode(new Buffer('START'), nodes[i]);
+	}
 }
