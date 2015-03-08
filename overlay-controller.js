@@ -85,7 +85,7 @@ function routeNodes(nodes) {
 function routeSubtree(parent, subtree) {
 
 	if (subtree.length == 1) {
-		setRoutingTableForSubtreeNode(subtree[0], parent, undefined, 0, undefined, undefined, undefined, 1024)
+		setRoutingTableForSubtreeNode(subtree[0], parent, undefined, 1, undefined, undefined, undefined, 1024)
 		return;
 	}
 
@@ -131,8 +131,14 @@ function addRoutesToCenterNode(node, subtreeRoot, smallest, largest, centernodes
 	var route = 'ROUTE_ADD ';
 
 	for (var i = 0; i < centernodes.length; i++) {
-		if (centernodes[i].id == (node.id - 128) || centernodes[i] == (node.id + 128)) {
+		if (centernodes[i].id == (node.id - 128) || centernodes[i].id == (node.id + 128)) {
 			console.log(centernodes[i]);
+			if (centernodes[i].id > node.id) {
+				route += generateRouteString(centernodes[i], node.id+1, 1024);
+			}
+			else {
+				route += generateRouteString(centernodes[i], 1, centernodes[i].id);
+			}
 		}
 	}
 
