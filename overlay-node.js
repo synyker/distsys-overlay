@@ -54,7 +54,7 @@ server.on('message', function(message, remote) {
 					largest: routePieces[4]
 				}
 				routes.push(route);
-				messageMasterNode(new Buffer('NODE_ROUTED'));
+				messageMasterNode(new Buffer('NODE_ROUTED ' + id));
 			}
 
 		};
