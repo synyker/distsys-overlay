@@ -18,6 +18,10 @@ var os = require('os');
 var host = os.hostname();
 var port = 40000;
 
+var totalRouteTableLength = 0;
+var minRouteTable = 1000;
+var maxRouteTable = 0;
+
 var totalMessages = 0;
 var totalHops = 0;
 
@@ -56,7 +60,16 @@ server.on('message', function(message, remote) {
 	if (messageContent.split(' ')[0] == 'NODE_ROUTED') {
 
 		var nid = messageContent.split(' ')[1];
+		var routeTableLength = parseInt(messageContent.split(' ')[2]);
+
 		if (!routed[nid]) {
+			totalRouteTableLength += routeTableLength;
+			
+			if (routeTableLength < minRouteTable)
+				minRouteTable = routeTableLength;
+			if (routeTableLength > maxRouteTable)
+				maxRouteTable = routeTableLength;
+
 			routedNodes += 1;
 			routed[nid] = true;
 			sendMessageToNode(new Buffer('ROUTED_RECEIVED'), nodes[parseInt(nid)-1]);
@@ -71,6 +84,9 @@ server.on('message', function(message, remote) {
 
 		if (routedNodes == 1024) {
 			console.log('all nodes routed');
+			console.log('min route table: ' + minRouteTable);
+			console.log('max route table: ' + maxRouteTable);
+			console.log('avg route table: ' + totalRouteTableLength / 1024);
 			startNodes(nodes);
 		}
 	}

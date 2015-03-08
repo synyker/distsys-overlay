@@ -60,7 +60,7 @@ server.on('message', function(message, remote) {
 
 		}
 
-		routed = setInterval(function() { messageNode(new Buffer('NODE_ROUTED ' + id), controllerAddress, controllerPort) }, 200);
+		routed = setInterval(function() { messageNode(new Buffer('NODE_ROUTED ' + id + ' ' + routes.length), controllerAddress, controllerPort) }, 200);
 	}
 	
 	if (messageContent.split(' ')[0] == 'ROUTED_RECEIVED') {
@@ -81,7 +81,7 @@ server.on('message', function(message, remote) {
 
 		if (parseInt(destinationId) == parseInt(id)) {
 			//console.log('FOUND NODE ' + id);
-			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, 10000);
+			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(1500, 2500));
 			//messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort);
 		}
 		else {
