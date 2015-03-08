@@ -103,7 +103,7 @@ function sendMessage(originalId, destinationId, hops) {
 		}
 	}
 
-	var m = new Buffer('MSG' + ' ' + originalId + ' ' + destinationId + ' ' + hops);
+	var m = new Buffer('MSG ' + originalId + ' ' + destinationId + ' ' + hops + ' ');
 	messageNode(m, destination.address, destination.port);
 }
 
