@@ -100,11 +100,12 @@ function messageOtherNodes() {
 
 function sendMessage(id, hops) {
 	for (var i = 0; i < routes.length; i++) {
-		if (id > routes[i].smallest && id < routes[i].largest) {
+		if (id >= routes[i].smallest && id =< routes[i].largest) {
 			var destination = routes[i];
 			break;
 		}
 	}
+	console.log('looking for node ' + id);
 	console.log(routes);
 	console.log(destination);
 	var m = new Buffer('MSG ' + id + ' ' + hops);
