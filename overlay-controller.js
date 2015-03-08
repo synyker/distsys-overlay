@@ -18,6 +18,9 @@ var os = require('os');
 var host = os.hostname();
 var port = 40000;
 
+var totalMessages = 0;
+var totalHops = 0;
+
 server.on('listening', function() {
 	console.log(server.address().address);
 });
@@ -70,6 +73,19 @@ server.on('message', function(message, remote) {
 			console.log('all nodes routed');
 			startNodes(nodes);
 		}
+	}
+
+	if (messageContent.split(' ')[0] == 'FOUND') {
+		var foundNode = messageContent.split(' ')[1];
+		var hops = parseInt(messageContent.split(' ')[2].trim());
+
+		totalMessages += 1;
+		totalHops += hops;
+
+		console.log('totalMessages: ' + totalMessages);
+		console.log('totalHops: ' + totalHops);
+		console.log('averge hops: ' totalHops / totalMessages);
+
 	}
 
 });
