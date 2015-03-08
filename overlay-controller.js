@@ -26,7 +26,7 @@ var receivedMessages = [];
 for (var r = 0; r < 1024; r++) {
 	receivedMessages[r] = [];
 	for (var s = 0; s < 1024; s++) {
-		receivedMessages[r][s] = false;
+		receivedMessages[s][r] = false;
 	}
 }
 
@@ -104,8 +104,8 @@ server.on('message', function(message, remote) {
 		var foundNode = parseInt(messageContent.split(' ')[2]);
 		var hops = parseInt(messageContent.split(' ')[3].trim());
 
-		if (!receivedMessages[originalNode][foundNode]) {
-			receivedMessages[originalNode][foundNode] = true;
+		if (!receivedMessages[originalNode-1][foundNode-1]) {
+			receivedMessages[originalNode-1][foundNode-1] = true;
 			totalMessages += 1;
 			totalHops += hops;
 
