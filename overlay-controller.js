@@ -66,13 +66,20 @@ function routeNodes(nodes) {
 	console.log('routing subtrees');
 	var centernodes = [];
 	var chunkSize = 128;
+
+	for (var i = 0; i < nodes.length; i+=chunkSize) {
+		var subtreeCenter = nodes[i+chunkSize-1]
+		centernodes.push(subtreeCenter);
+	}
+	console.log(centernodes);
+
 	for (var i = 0; i < nodes.length; i+=chunkSize) {
 		console.log('routing subtree ' + ( (i+chunkSize) / 128 ) );
 		var subtree = nodes.slice(i,i+chunkSize-1);
-		var subtreeCenter = nodes[i+chunkSize-1]
-		centernodes.push(subtreeCenter);
-		addToNodeRoutingTable(subtreeCenter, subtree[Math.ceil(subtree.length/2)], subtree[0].id, subtree[subtree.length-1].id);
-		routeSubtree(subtreeCenter, subtree);
+		var currentCenter = nodes[i+chunkSize-1]
+		
+		addRoutesToCenterNode(currentCenter, subtree[Math.ceil(subtree.length/2)-1], subtree[0].id, subtree[subtree.length-1].id, centernodes);
+		routeSubtree(currentCenter, subtree);
 	}
 }
 
@@ -128,11 +135,12 @@ function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, le
 
 }
 
-function addToNodeRoutingTable(node, destination, smallest, largest) {
+function addRoutesToCenterNode(node, subtreeRoot, smallest, largest, centernodes) {
 
 	var route = 'ROUTE_ADD ';
 
-	route += generateRouteString(destination, smallest, largest);
+
+	route += generateRouteString(subtreeRoot, smallest, largest);
 
 	sendRouteAddMessage(new Buffer(route), node);
 }
