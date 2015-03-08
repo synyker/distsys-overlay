@@ -72,7 +72,7 @@ server.on('message', function(message, remote) {
 
 
 		if (parseInt(destinationId) == parseInt(id)) {
-			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(250, 500));
+			found = setInterval(function() { messageNode(new Buffer('FOUND ' + originId + ' ' + id + ' ' + hops), controllerAddress, controllerPort) }, randomInteger(250, 500));
 		}
 		else {
 			hops += 1;
