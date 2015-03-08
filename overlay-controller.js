@@ -23,10 +23,10 @@ var minRouteTable = 1000;
 var maxRouteTable = 0;
 
 var receivedMessages = [];
-for (var i = 0; i < 1024; i++) {
-	receivedMessages[i] = [];
-	for (var j = 0; j < 1024; j++) {
-		receivedMessages[i][j] = false;
+for (var r = 0; r < 1024; r++) {
+	receivedMessages[r] = [];
+	for (var s = 0; s < 1024; s++) {
+		receivedMessages[r][s] = false;
 	}
 }
 
