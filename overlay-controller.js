@@ -87,8 +87,10 @@ server.on('message', function(message, remote) {
 		//console.log('found node: ' + foundNode);
 		//console.log('totalMessages: ' + totalMessages);
 		//console.log('totalHops: ' + totalHops);
-		if (totalMessages % 100 == 0)
+		if (totalMessages % 10000 == 0 || totalMessages == 1024*1024) {
 			console.log('average hops: ' + totalHops / totalMessages);
+			console.log('totalMessages: ' + totalMessages);
+		}
 
 	}
 
