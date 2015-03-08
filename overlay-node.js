@@ -81,13 +81,16 @@ server.on('message', function(message, remote) {
 
 		if (parseInt(destinationId) == parseInt(id)) {
 			//console.log('FOUND NODE ' + id);
-			foundMsg = new Buffer('FOUND ' + id + ' ' + hops);
-			messageNode(foundMsg, controllerAddress, controllerPort);
+			found = setInterval(function() { messageNode(new Buffer('FOUND ' + id + ' ' + hops), controllerAddress, controllerPort) }, 200);
 		}
 		else {
 			hops += 1;
 			sendMessage(destinationId, hops);
 		}
+	}
+
+	if (messageContent.split(' ')[0] == 'FOUND_RECEIVED') {
+		clearInterval(found);
 	}
 
 });
