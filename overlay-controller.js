@@ -107,6 +107,8 @@ function routeSubtree(parent, subtree) {
 
 function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, leftLargest, rightChild, rightSmallest, rightLargest) {
 
+	console.log('setRoutingTableForSubtreeNode');
+
 	console.log(leftChild);
 	console.log(rightChild);
 
@@ -114,11 +116,11 @@ function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, le
 
 	route += generateRouteString(parent, leftSmallest, rightLargest);
 	
-	if (typeof leftChild !== undefined) {
+	if (leftChild !== undefined) {
 		route += generateRouteString(leftChild, leftSmallest, leftLargest);
 	}
 	
-	if (typeof rightChild !== undefined) {
+	if (rightChild !== undefined) {
 		route += generateRouteString(rightChild, rightSmallest, rightLargest);
 	}
 
