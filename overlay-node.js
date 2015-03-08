@@ -16,8 +16,8 @@ var routes = [];
 var dgram = require('dgram');
 server = dgram.createSocket('udp4');
 
-var controllerAddress = '86.50.20.183'; //'ukko182.hpc.cs.helsinki.fi';
-var controllerPort = 40000;
+controllerAddress = '86.50.20.183'; //'ukko182.hpc.cs.helsinki.fi';
+controllerPort = 40000;
 
 // Local variables for full node history, number of local events counting, local clock timestamp.
 var history = '';
@@ -108,7 +108,7 @@ function sendMessage(id, hops) {
 }
 
 function messageNode(msg, targetHost, targetPort) {
-	server.send(msg, 0, msg.length, targetHost, targetPort, function (err, bytes) {
+	server.send(msg, 0, msg.length, targetPort, targetHost, function (err, bytes) {
 		if (err) throw err;
 	});
 }
