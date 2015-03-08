@@ -71,7 +71,6 @@ function routeNodes(nodes) {
 		var subtreeCenter = nodes[i+chunkSize-1]
 		centernodes.push(subtreeCenter);
 	}
-	console.log(centernodes);
 
 	for (var i = 0; i < nodes.length; i+=chunkSize) {
 		console.log('routing subtree ' + ( (i+chunkSize) / 128 ) );
@@ -93,11 +92,8 @@ function routeSubtree(parent, subtree) {
 	var curRootIndex = Math.ceil(subtree.length/2)-1;
 	var curRoot = subtree[curRootIndex];
 
-	console.log('routing node ' + curRoot.id);
+	//console.log('routing node ' + curRoot.id);
 
-	if (subtree.length < 5) {
-		console.log(subtree);
-	}
 
 	var leftSubtree = subtree.slice(0,curRootIndex);
 	var leftChild = leftSubtree[Math.ceil(leftSubtree.length/2)-1];
@@ -113,11 +109,6 @@ function routeSubtree(parent, subtree) {
 }
 
 function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, leftLargest, rightChild, rightSmallest, rightLargest) {
-
-	console.log('setRoutingTableForSubtreeNode');
-
-	console.log(leftChild);
-	console.log(rightChild);
 
 	var route = 'ROUTE_ADD ';
 
@@ -136,9 +127,14 @@ function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, le
 }
 
 function addRoutesToCenterNode(node, subtreeRoot, smallest, largest, centernodes) {
-
+	console.log('adding routes to center node ' + node.id);
 	var route = 'ROUTE_ADD ';
 
+	for (var i = 0; i < centernodes.length; i++) {
+		if (centernodes[i].id == (node.id - 128) || centernodes[i] == (node.id + 128)) {
+			console.log(centernodes[i]);
+		}
+	}
 
 	route += generateRouteString(subtreeRoot, smallest, largest);
 
