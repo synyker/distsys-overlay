@@ -73,10 +73,13 @@ server.on('message', function(message, remote) {
 	}
 
 	if (messageContent.split(' ')[0] == 'MSG') {
+
+		console.log(messageContent);
+
 		var destinationId = messageContent.split(' ')[1].trim();
 		var hops = parseInt(messageContent.split(' ')[2].trim());
 
-		if (destinationId == id) {
+		if (parseInt(destinationId) == parseInt(id)) {
 			console.log('jahuu');
 		}
 		else {
