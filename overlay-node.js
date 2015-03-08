@@ -29,7 +29,7 @@ server.on('listening', function() {
 	var address = server.address();
 	//console.log('listening on ' + address.address + ':' + address.port);
 
-	messageMasterNode(new Buffer('NODE_STARTED ' + id));
+	messageNode(new Buffer('NODE_STARTED ' + id), controllerAddress, controllerPort);
 });
 
 
@@ -60,7 +60,7 @@ server.on('message', function(message, remote) {
 
 		}
 
-		routed = setInterval(function() { messageMasterNode(new Buffer('NODE_ROUTED ' + id)) }, 200);
+		routed = setInterval(function() { messageNode(new Buffer('NODE_ROUTED ' + id), controllerAddress, controllerPort) }, 200);
 	}
 	
 	if (messageContent.split(' ')[0] == 'ROUTED_RECEIVED') {
@@ -73,8 +73,16 @@ server.on('message', function(message, remote) {
 	}
 
 	if (messageContent.split(' ')[0] == 'MSG') {
-		var destination = messageContent.split(' ')[1].trim();
-		var hops = messageContent.split(' ')[2].trim();
+		var destinationId = messageContent.split(' ')[1].trim();
+		var hops = parseInt(messageContent.split(' ')[2].trim());
+
+		if (destinationId == id) {
+			console.log('jahuu');
+		}
+		else {
+			hops += 1;
+			sendMessage(destinationId, hops);
+		}
 	}
 
 });
@@ -82,8 +90,25 @@ server.on('message', function(message, remote) {
 // Listen to the port on the host and port specified in the config file.
 server.bind(port, host);
 
-function messageMasterNode(msg) {
-	server.send(msg, 0, msg.length, controllerPort, controllerAddress, function (err, bytes) {
+function messageOtherNodes() {
+	for (var id = 1; id <= 1024; id++) {
+		sendMessage(i, 1);
+	}
+}
+
+function sendMessage(id, hops) {
+	for (var i = 0; i < routes.length; i++) {
+		if (id > routes[i].smallest && id < routes[i].largest) {
+			var destination = routes[i];
+			break;
+		}
+	}
+	var m = new Buffer('MSG ' + id + ' ' + hops);
+	messageNode(m, destination.address, destination.port);
+}
+
+function messageNode(msg, targetHost, targetPort) {
+	server.send(msg, 0, msg.length, targetHost, targetPort, function (err, bytes) {
 		if (err) throw err;
 	});
 }
