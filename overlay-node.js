@@ -64,7 +64,6 @@ server.on('message', function(message, remote) {
 	}
 	
 	if (messageContent.split(' ')[0] == 'ROUTED_RECEIVED') {
-		console.log('clearing interval');
 		clearInterval(routed);
 	}
 
@@ -95,7 +94,7 @@ server.bind(port, host);
 
 function messageOtherNodes() {
 	for (var id = 1; id <= 1024; id++) {
-		sendMessage(i, 1);
+		sendMessage(id, 1);
 	}
 }
 
