@@ -69,7 +69,7 @@ server.on('message', function(message, remote) {
 	}
 
 	if (messageContent.split(' ')[0] == 'START') {
-		console.log('messaging others');
+		messageOtherNodes();
 	}
 
 	if (messageContent.split(' ')[0] == 'MSG') {
