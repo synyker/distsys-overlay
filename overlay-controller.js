@@ -61,7 +61,7 @@ server.on('message', function(message, remote) {
 		
 
 		console.log('routed: ' + routedNodes);
-		if (routedNodes % 128 == 0 || routedNodes > 1020) {
+		if (routedNodes % 128 == 0) {
 			console.log('routed: ' + routedNodes);
 			//startNodes(nodes);
 		}
@@ -126,7 +126,13 @@ function setRoutingTableForSubtreeNode(node, parent, leftChild, leftSmallest, le
 
 	var route = 'ROUTE_ADD ';
 
-	route += generateRouteString(parent, leftSmallest, rightLargest);
+	if (leftChild && rightChild) {
+		route += generateRouteString(parent, 1, leftSmallest-1);
+		route += generateRouteString(parent, rightLargest+1, 1024);
+	}
+	else {
+		route += generateRouteString(parent, leftSmallest, rightLargest);	
+	}
 	
 	if (leftChild !== undefined) {
 		route += generateRouteString(leftChild, leftSmallest, leftLargest);
