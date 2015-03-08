@@ -73,14 +73,14 @@ server.on('message', function(message, remote) {
 
 	if (messageContent.split(' ')[0] == 'MSG') {
 
-		console.log(messageContent);
+		//console.log(messageContent);
 
 		var destinationId = messageContent.split(' ')[1].trim();
 		var hops = parseInt(messageContent.split(' ')[2].trim());
 
 
 		if (parseInt(destinationId) == parseInt(id)) {
-			console.log('FOUND NODE ' + id);
+			//console.log('FOUND NODE ' + id);
 			foundMsg = new Buffer('FOUND ' + id + ' ' + hops);
 			messageNode(foundMsg, controllerAddress, controllerPort);
 		}
