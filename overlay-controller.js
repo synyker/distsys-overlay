@@ -101,7 +101,7 @@ server.bind(port, host);
 function routeNodes(nodes) {
 	console.log('routing subtrees');
 	var centernodes = [];
-	var chunkSize = 128;
+	var chunkSize = 1024;
 
 	for (var i = 0; i < nodes.length; i+=chunkSize) {
 		var subtreeCenter = nodes[i+chunkSize-1]
@@ -109,7 +109,7 @@ function routeNodes(nodes) {
 	}
 
 	for (var i = 0; i < nodes.length; i+=chunkSize) {
-		console.log('routing subtree ' + ( (i+chunkSize) / 128 ) );
+		console.log('routing subtree ' + ( (i+chunkSize) / 1024 ) );
 		var subtree = nodes.slice(i,i+chunkSize-1);
 		var currentCenter = nodes[i+chunkSize-1]
 		
@@ -173,7 +173,7 @@ function addRoutesToCenterNode(node, subtreeRoot, smallest, largest, centernodes
 	var route = 'ROUTE_ADD ';
 
 	for (var i = 0; i < centernodes.length; i++) {
-		if (centernodes[i].id == (node.id - 128) || centernodes[i].id == (node.id + 128)) {
+		if (centernodes[i].id == (node.id - 1024) || centernodes[i].id == (node.id + 1024)) {
 			console.log(centernodes[i]);
 			if (centernodes[i].id > node.id) {
 				route += generateRouteString(centernodes[i], node.id+1, 1024);
